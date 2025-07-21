@@ -5,7 +5,7 @@ const resultContainer = document.getElementById("result-container");
 let isProcessing      = false;
 
 function getApiUrl() {
-  return "https://bone-sight-api.onrender.com/api/detect";
+  return "https://bonesight-api.onrender.com/api/detect";
 }
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -61,7 +61,7 @@ function sendImage(file) {
       }
 
       // Construim URL-ul catre FastAPI
-      const fullUrl = "https://bone-sight-api.onrender.com" + data.url + "?t=" + Date.now();
+      const fullUrl = "https://bonesight-api.onrender.com" + data.url + "?t=" + Date.now();
 
       const img = new Image();
       img.alt = "Rezultat detectare";
