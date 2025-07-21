@@ -8,7 +8,6 @@ function getApiUrl() {
   return "http://127.0.0.1:8000/api/detect";
 }
 
-// La încărcare ascundem loading și golim containerul
 window.addEventListener("DOMContentLoaded", () => {
   loading.style.display     = "none";
   resultContainer.innerHTML = "";
@@ -46,7 +45,7 @@ function sendImage(file) {
 
   isProcessing     = true;
   loading.style.display     = "block";
-  resultContainer.innerHTML = "";  // ștergem orice imagine anterioară
+  resultContainer.innerHTML = "";  // stergem orice imagine anterioara
 
   const formData = new FormData();
   formData.append("file", file);
@@ -61,10 +60,9 @@ function sendImage(file) {
         throw new Error("Răspuns fără url");
       }
 
-      // Construim URL-ul complet către FastAPI
+      // Construim URL-ul catre FastAPI
       const fullUrl = "http://127.0.0.1:8000" + data.url + "?t=" + Date.now();
 
-      // Creăm un img nou
       const img = new Image();
       img.alt = "Rezultat detectare";
       img.onload = () => {
@@ -78,7 +76,6 @@ function sendImage(file) {
       };
       img.src = fullUrl;
 
-      // Adăugăm img-ul în container
       resultContainer.appendChild(img);
     })
     .catch(err => {

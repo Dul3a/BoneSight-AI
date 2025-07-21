@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from ultralytics import YOLO
 
 # === CONFIGURARE ===
-MODEL_PATH = "runs/detect/train3/weights/best.pt"
+MODEL_PATH = "best.pt"
 STATIC_RESULTS_DIR = "static/results"
 os.makedirs(STATIC_RESULTS_DIR, exist_ok=True)
 
@@ -17,17 +17,13 @@ os.makedirs(STATIC_RESULTS_DIR, exist_ok=True)
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # poți restrânge la frontend-ul tău dacă vrei
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# === ÎNCARCĂ MODEL ===
-print("📦 Se încarcă modelul YOLOv8...")
 model = YOLO(MODEL_PATH)
-print("✅ Model încărcat!")
 
 # === FUNCTIE PENTRU ULTIMA IMAGINE DIN PREDICT ===
 def get_latest_predict_image():
@@ -43,22 +39,17 @@ def get_latest_predict_image():
 async def detect_fracture(file: UploadFile = File(...)):
     try:
         print(f"📥 Imagine primită: {file.filename}")
-        # Salvează fișierul primit temporar
         temp_filename = f"temp_{uuid.uuid4().hex}_{file.filename}"
         with open(temp_filename, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        print("🔍 Rulez detecția YOLO...")
         model(source=temp_filename, save=True, save_txt=False, show=False)
-        print("✅ Detecție completă")
 
-        # Obține imaginea generată
         pred_img_path = get_latest_predict_image()
         if not pred_img_path or not os.path.exists(pred_img_path):
             os.remove(temp_filename)
             return JSONResponse({"error": "Nu s-a generat nicio imagine!"}, status_code=500)
 
-        # Copiază în folder static cu un nume unic
         result_filename = f"{uuid.uuid4().hex}.jpg"
         result_path = os.path.join(STATIC_RESULTS_DIR, result_filename)
         shutil.copy(pred_img_path, result_path)
