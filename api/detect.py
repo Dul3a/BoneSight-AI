@@ -17,7 +17,7 @@ os.makedirs(STATIC_RESULTS_DIR, exist_ok=True)
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  
+    allow_origins=["https://bonesight-ai.vercel.app"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
