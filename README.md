@@ -50,4 +50,4 @@ BoneSight AI is a lightweight, full-stack web application that detects bone frac
 
 ### Note
 
-Because the host on [Render] is free, image requests made on the website might take some time to process due to the limited hardware resources of the virtual machine. If you try to process an image immediately after accessing the page and it takes too long, I recommend refreshing the page and trying again. Processing can take 1–2 minutes, so please be patient.
+Because the host on **Render** is free, image requests made on the website might take some time to process due to the limited hardware resources of the virtual machine. If you try to process an image immediately after accessing the page and it takes too long, I recommend refreshing the page and trying again. Processing can take 1–2 minutes, so please be patient.
