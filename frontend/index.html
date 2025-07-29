@@ -2,18 +2,60 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <title>Detectare Fractură - BoneSight AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoneSight AI - Detectare Fractură</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <h1>Detectare Fractură</h1>
-    <div id="drop-area" tabindex="0">
-        Trage o imagine aici
-        <input type="file" id="input-file" accept="image/*">
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-bone"></i>
+                <h1>BoneSight AI</h1>
+            </div>
+            <p class="subtitle">Detectare inteligentă de fracturi prin inteligență artificială</p>
+        </header>
+
+        <main class="main-content">
+            <section class="upload-section">
+                <div class="upload-card">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h2>Încarcă o imagine</h2>
+                    <p>Trage și plasează o imagine aici sau <span class="click-here">click pentru a selecta</span></p>
+                    
+                    <div id="drop-area" class="drop-zone">
+                        <div class="drop-zone-content">
+                            <i class="fas fa-image"></i>
+                            <p>Trage imaginea aici sau click pentru a selecta</p>
+                            <span class="supported-formats">Formate suportate: JPG, PNG, GIF</span>
+                        </div>
+                        <input type="file" id="input-file" accept="image/*">
+                    </div>
+                </div>
+            </section>
+
+            <section id="loading" class="loading-section">
+                <div class="loading-card">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                    </div>
+                    <h3>Se procesează imaginea...</h3>
+                    <p>Analizăm imaginea cu inteligența artificială</p>
+                </div>
+            </section>
+
+            <section id="result-container" class="results-section">
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2025 BoneSight AI. All rights reserved.</p>
+        </footer>
     </div>
-    <div id="loading" style="display:none;">Se procesează imaginea...</div>
-    <!-- Înlocuim img#result-img cu un div container -->
-    <div id="result-container"></div>
 
     <script src="script.js"></script>
 </body>
