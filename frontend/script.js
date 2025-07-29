@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }, 100);
 });
 
-dropArea.addEventListener("click", () => {
+dropArea.addEventListener("click", (e) => {
   if (!isProcessing) {
     inputFile.click();
     dropArea.style.transform = "scale(0.98)";
@@ -63,6 +63,10 @@ inputFile.addEventListener("change", (e) => {
     sendImage(e.target.files[0]);
     e.target.value = '';
   }
+});
+
+inputFile.addEventListener("click", (e) => {
+  e.stopPropagation();
 });
 
 function sendImage(file) {
