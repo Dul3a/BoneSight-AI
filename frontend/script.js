@@ -26,6 +26,8 @@ dropArea.addEventListener("click", () => {
     setTimeout(() => {
       dropArea.style.transform = "scale(1)";
     }, 150);
+  } else {
+    showNotification("Se procesează deja o imagine. Așteaptă să se termine.", "info");
   }
 });
 
@@ -51,18 +53,24 @@ dropArea.addEventListener("drop", e => {
   dropArea.style.borderColor = "#ddd";
   dropArea.style.background = "rgba(255,255,255,0.5)";
   
-  if (!isProcessing && e.dataTransfer.files.length) {
+  if (e.dataTransfer.files.length) {
     sendImage(e.dataTransfer.files[0]);
   }
 });
 
-inputFile.addEventListener("change", () => {
-  if (!isProcessing && inputFile.files.length) {
-    sendImage(inputFile.files[0]);
+inputFile.addEventListener("change", (e) => {
+  if (e.target.files.length > 0) {
+    sendImage(e.target.files[0]);
+    e.target.value = '';
   }
 });
 
 function sendImage(file) {
+  if (isProcessing) {
+    showNotification("Se procesează deja o imagine. Așteaptă să se termine.", "info");
+    return;
+  }
+
   if (!file.type.startsWith("image/")) {
     showNotification("Te rog selectează o imagine!", "error");
     return;
@@ -107,6 +115,11 @@ function sendImage(file) {
         hideLoading();
         isProcessing = false;
         showNotification("Analiza completă! Fractura a fost detectată.", "success");
+        
+        const existingPreview = document.querySelector(".file-preview");
+        if (existingPreview) {
+          existingPreview.remove();
+        }
         
         const resultWrapper = document.createElement("div");
         resultWrapper.className = "result-wrapper";
