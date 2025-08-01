@@ -1,4 +1,5 @@
 const dropArea = document.getElementById("drop-area");
+const clickHereElement = document.querySelector(".click-here");
 const inputFile = document.getElementById("input-file");
 const loading = document.getElementById("loading");
 const resultContainer = document.getElementById("result-container");
@@ -17,6 +18,22 @@ window.addEventListener("DOMContentLoaded", () => {
     document.body.style.transition = "opacity 0.5s ease-in";
     document.body.style.opacity = "1";
   }, 100);
+  
+  if (clickHereElement) {
+    clickHereElement.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!isProcessing) {
+        inputFile.click();
+        dropArea.style.transform = "scale(0.98)";
+        setTimeout(() => {
+          dropArea.style.transform = "scale(1)";
+        }, 150);
+      } else {
+        showNotification("Se procesează deja o imagine. Așteaptă să se termine.", "info");
+      }
+    });
+  }
 });
 
 dropArea.addEventListener("click", (e) => {
