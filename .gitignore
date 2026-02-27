@@ -1,0 +1,10 @@
+images2/*
+/\.vscode/
+
+dist/
+build/
+__pycache__/
+
+static/results/*
+runs/*
+other_models/*

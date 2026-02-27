@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from ultralytics import YOLO
 
 # === CONFIGURARE ===
-MODEL_PATH = "best.pt"
+MODEL_PATH = "best_fracture_detector.pt"
 STATIC_RESULTS_DIR = "static/results"
 os.makedirs(STATIC_RESULTS_DIR, exist_ok=True)
 
@@ -38,12 +38,12 @@ def get_latest_predict_image():
 @app.post("/api/detect")
 async def detect_fracture(file: UploadFile = File(...)):
     try:
-        print(f"📥 Imagine primită: {file.filename}")
+        print(f"Imagine primita: {file.filename}")
         temp_filename = f"temp_{uuid.uuid4().hex}_{file.filename}"
         with open(temp_filename, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        model(source=temp_filename, save=True, save_txt=False, show=False)
+        model(source=temp_filename, conf=0.01, save=True, save_txt=False, show=False)
 
         pred_img_path = get_latest_predict_image()
         if not pred_img_path or not os.path.exists(pred_img_path):
@@ -54,17 +54,17 @@ async def detect_fracture(file: UploadFile = File(...)):
         result_path = os.path.join(STATIC_RESULTS_DIR, result_filename)
         shutil.copy(pred_img_path, result_path)
 
-        print(f"🖼 Imagine finală: {result_path}")
+        print(f"Imagine finala: {result_path}")
         os.remove(temp_filename)
 
         return JSONResponse({"url": f"/static/results/{result_filename}"})
     
     except Exception as e:
-        print("❌ Eroare server:", str(e))
+        print("Eroare server:", str(e))
         return JSONResponse({"error": "Eroare la procesare imagine!"}, status_code=500)
 
 # === HANDLER PENTRU ERORI GLOBALE ===
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
-    print("❌ EROARE GLOBALĂ:", exc)
+    print("EROARE GLOBALA:", exc)
     return JSONResponse({"error": str(exc)}, status_code=500)
