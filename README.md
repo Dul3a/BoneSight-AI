@@ -1,13 +1,13 @@
 # 🦴 BoneSight AI
 
-BoneSight AI is a lightweight, full-stack web application that detects bone fractures in X-ray images using a custom-trained YOLOv11 model. The frontend is built with HTML/CSS/JS and hosted on **Vercel**, while the FastAPI backend is hosted on **Render**.
+BoneSight AI is a lightweight, full-stack web application that detects bone fractures in X-ray images using a custom-trained YOLOv26 model. The frontend is built with HTML/CSS/JS and hosted on **Vercel**, while the FastAPI backend is hosted on **Render**.
 
 ---
 
 ## Features
 
 -  Upload X-ray images of possible fractures
--  Real-time fracture detection using YOLOv11
+-  Real-time fracture detection using YOLOv26
 -  Returns annotated image with bounding boxes
 
 ---
@@ -18,7 +18,7 @@ BoneSight AI is a lightweight, full-stack web application that detects bone frac
 2. The image is sent to the FastAPI backend via a POST request.
 3. The backend:
    - Saves the image temporarily
-   - Runs YOLOv11 prediction
+   - Runs YOLOv26 prediction
    - Copies the annotated result to a static folder
 4. The backend responds with the image URL.
 5. The frontend displays the final result.
@@ -33,7 +33,7 @@ BoneSight AI is a lightweight, full-stack web application that detects bone frac
 
 ### Backend
 - FastAPI + Python
-- Ultralytics YOLOv11 (`ultralytics` package)
+- Ultralytics YOLOv26 (`ultralytics` package)
 - Hosted on [Render](https://render.com/)
 
 ---
